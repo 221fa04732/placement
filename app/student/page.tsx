@@ -1,8 +1,10 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "../db";
+import Button from "../component/Button";
 
 export default async function(){
 
     interface student {
+        id      : string
         name    :   string
         regNo   :   string
         batch   :   string
@@ -12,23 +14,25 @@ export default async function(){
         placedDate : string
     }
 
-    const prisma = new PrismaClient();
-
-    const students = await prisma.student.findMany({});
+    const data : student[] = await prisma.student.findMany({});
 
     return(<div className="flex flex-col justify-center items-center">
 
         <div className="m-5">Student Info</div>
 
-        {students.map((student: student )=>(
-            <div className="flex w-full justify-between">
+        {data.map((student: student )=>(
+            <div key={student.id} className="flex w-full justify-between p-1">
                 <div>{student.name}</div>
+                <div>{student.regNo}</div>
+                <div>{student.batch}</div>
                 <div>{student.company}</div>
                 <div>{student.package}</div>
+                <div>{student.branch}</div>
+                <div>{student.placedDate}</div>
+                <Button id={student.id}></Button>
             </div>
             
         ))}
     </div>)
     
-
 }
