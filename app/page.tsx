@@ -1,50 +1,9 @@
-"use client"
-
-import { useState } from "react";
-import axios from "axios"
+import Link from 'next/link'
 
 
-export default function Home() {
-
-  const [studentData, setStudentData] = useState<File | null>(null)
-
-  async function fetchStudentData(){
-
-    try{
-      if(studentData){
-
-        const formdata = new FormData();
-        formdata.append("file", studentData);
-
-        console.log(formdata)
-        const response =await axios.post("http://localhost:3000/api/newStudent",formdata, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-        }})
-
-        console.log(response.data)
-      }
-      else{
-        console.log("choose a file")
-      }
-    }
-
-    catch(e){
-      console.log("error")
-    }
-  }
-
-  return (<div>
-    <input type="file" accept=".csv" onChange={(e)=>{
-      if(e.target.files && e.target.files.length > 0){
-        setStudentData(e.target.files[0])
-      }
-    }}/>
-
-    <button onClick={()=>{
-      fetchStudentData();
-    }}>upload</button>
-    
-  </div>
-  );
+export default function(){
+  return(<div className='min-h-screen flex flex-col justify-center items-center text-blue-500'>
+    <Link href='/student' className='text-xl p-10'>View Student</Link>
+    <Link href={'/upload'} className='text-xl p-10'>Upload</Link>
+  </div>)
 }

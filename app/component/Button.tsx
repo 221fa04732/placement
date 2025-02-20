@@ -6,23 +6,22 @@ export default function Button(props : {
     id : string
 }){
 
-    async function deleteStudent() {
-        
-        const id = props.id;
-        try{
-            const user = await axios.put('http://localhost:3000/api/deleteStudent',{
-                id : id
-            })
-            if(user){
-                console.log(user)
-            }
-        }
-        catch(error){
-            console.log(error)
+    const id : string =props.id;
+    return (<button onClick={()=>{
+        deleteStudent(id);
+    }}>Delete</button>)
+}
+
+async function deleteStudent(id : string) {
+    try{
+        const user = await axios.put('http://localhost:3000/api/deleteStudent',{
+            id : id
+        })
+        if(user){
+            console.log(user)
         }
     }
-
-    return (<button onClick={()=>{
-        deleteStudent()
-    }}>Delete</button>)
+    catch(error){
+        console.log(error)
+    }
 }

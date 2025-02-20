@@ -1,20 +1,22 @@
+"use server"
+
 import prisma from "../db";
 import Button from "../component/Button";
 
+interface student {
+    id      : string
+    name    :   string
+    regNo   :   string
+    batch   :   string
+    company   : string
+    package  :  string
+    branch  :   string
+    placedDate : string
+}
+
 export default async function(){
 
-    interface student {
-        id      : string
-        name    :   string
-        regNo   :   string
-        batch   :   string
-        company   : string
-        package  :  string
-        branch  :   string
-        placedDate : string
-    }
-
-    const data : student[] = await prisma.student.findMany({});
+    const data : student[] = await prisma.student.findMany();
 
     return(<div className="flex flex-col justify-center items-center">
 
